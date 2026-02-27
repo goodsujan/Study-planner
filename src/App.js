@@ -10,6 +10,7 @@ import { getStoredSubjects, storeSubjects } from './utils/localStorage';
 function App() {
   const [subjects, setSubjects] = useState([]);
   const [editItem, setEditItem] = useState(null);
+  const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
     setSubjects(getStoredSubjects());
@@ -44,6 +45,18 @@ function App() {
     setEditItem(null);
   };
 
+  const addSession = (session) => {
+    const newSession = {
+      id: Date.now(),
+      ...session
+    };
+    setSessions([...sessions, newSession]);
+  };
+
+  const deleteSession = (id) => {
+    setSessions(sessions.filter(s => s.id !== id));
+  };
+
   return (
     <Layout>
       <Header />
@@ -60,8 +73,8 @@ function App() {
         onEdit={editSubject}
       />
 
-      <SessionForm />
-      <SessionList />
+      <SessionForm onAddSession={addSession} />
+      <SessionList sessions={sessions} onDelete={deleteSession} />
     </Layout>
   );
 }

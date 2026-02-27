@@ -1,36 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SessionForm = () => {
+const SessionForm = ({ onAddSession }) => {
+    const [form, setForm] = useState({
+        subject: '',
+        date: '',
+        time: '',
+        duration: '',
+        notes: ''
+    });
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (!form.subject || !form.date || !form.time || !form.duration) return;
+
+        onAddSession(form);
+        setForm({ subject: '', date: '', time: '', duration: '', notes: '' });
+    };
+
     return (
-        <form style={styles.form}>
+        <form style={styles.form} onSubmit={handleSubmit}>
             <h3>Plan Study Session</h3>
 
             <input
-                type="text"
+                name="subject"
                 placeholder="Subject name"
+                value={form.subject}
+                onChange={handleChange}
                 style={styles.input}
             />
 
             <input
+                name="date"
                 type="date"
+                value={form.date}
+                onChange={handleChange}
                 style={styles.input}
             />
 
             <input
+                name="time"
                 type="time"
+                value={form.time}
+                onChange={handleChange}
                 style={styles.input}
             />
 
             <input
+                name="duration"
                 type="number"
                 placeholder="Duration (minutes)"
+                value={form.duration}
+                onChange={handleChange}
                 style={styles.input}
             />
 
             <textarea
+                name="notes"
                 placeholder="Notes (optional)"
+                value={form.notes}
+                onChange={handleChange}
                 style={styles.textarea}
-            ></textarea>
+            />
 
             <button type="submit" style={styles.button}>
                 Add Session
