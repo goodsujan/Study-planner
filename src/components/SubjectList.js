@@ -2,12 +2,15 @@ function SubjectList({ subjects, deleteSubject, setEditSubject }) {
     return (
         <ul>
             {subjects.map((sub) => (
-                <li key={sub.id}>
+                <><li key={sub.id}>
                     <span>{sub.name}</span>
-
                     <button onClick={() => setEditSubject(sub)}>✏</button>
                     <button onClick={() => deleteSubject(sub.id)}>❌</button>
-                </li>
+                </li><li
+                    className={setEditSubject?.id === sub.id ? "editing" : ""}
+                >
+                        ...
+                    </li></>
             ))}
         </ul>
     );

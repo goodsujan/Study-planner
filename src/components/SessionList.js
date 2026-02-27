@@ -2,13 +2,18 @@ function SessionList({ sessions, deleteSession, setEditSession }) {
     return (
         <ul>
             {sessions.map((s) => (
-                <li key={s.id}>
+                <><li key={s.id}>
                     <span>
                         {s.title} — {s.duration} min on {s.date} at {s.time}
                     </span>
                     <button onClick={() => setEditSession(s)}>✏</button>
                     <button onClick={() => deleteSession(s.id)}>❌</button>
-                </li>
+                </li><li
+                    key={s.id}
+                    className={setEditSession?.id === s.id ? "editing" : ""}
+                >
+                        ...
+                    </li></>
             ))}
         </ul>
     );
