@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Layout from './components/Layout';
 import SubjectForm from './components/SubjectForm';
 import SubjectList from './components/SubjectList';
+import { getStoredSubjects, storeSubjects } from './utils/localStorage';
 
 function App() {
   const [subjects, setSubjects] = useState([]);
   const [editItem, setEditItem] = useState(null);
+
+  useEffect(() => {
+    setSubjects(getStoredSubjects());
+  }, []);
+
+  useEffect(() => {
+    storeSubjects(subjects);
+  }, [subjects]);
 
   const addSubject = (name) => {
     const newSubject = {
