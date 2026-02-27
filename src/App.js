@@ -12,15 +12,21 @@ function App() {
       id: Date.now(),
       name
     };
-
     setSubjects([...subjects, newSubject]);
+  };
+
+  const deleteSubject = (id) => {
+    setSubjects(subjects.filter(sub => sub.id !== id));
   };
 
   return (
     <Layout>
       <Header />
       <SubjectForm onAddSubject={addSubject} />
-      <SubjectList subjects={subjects} />
+      <SubjectList
+        subjects={subjects}
+        onDelete={deleteSubject}
+      />
     </Layout>
   );
 }
