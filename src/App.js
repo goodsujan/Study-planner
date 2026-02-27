@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Layout from './components/Layout';
 import SubjectForm from './components/SubjectForm';
 import SubjectList from './components/SubjectList';
+import SessionForm from './components/SessionForm';
+import SessionList from './components/SessionList';
 import { getStoredSubjects, storeSubjects } from './utils/localStorage';
 
 function App() {
@@ -45,16 +47,21 @@ function App() {
   return (
     <Layout>
       <Header />
+
       <SubjectForm
         onAddSubject={addSubject}
         editItem={editItem}
         onUpdate={updateSubject}
       />
+
       <SubjectList
         subjects={subjects}
         onDelete={deleteSubject}
         onEdit={editSubject}
       />
+
+      <SessionForm />
+      <SessionList />
     </Layout>
   );
 }
