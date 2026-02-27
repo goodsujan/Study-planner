@@ -5,19 +5,19 @@ import SubjectForm from './components/SubjectForm';
 import SubjectList from './components/SubjectList';
 import SessionForm from './components/SessionForm';
 import SessionList from './components/SessionList';
-import { getStoredSubjects, storeSubjects } from './utils/localStorage';
+import { loadFromStorage, saveToStorage } from "./utils/localStorage";
 
 function App() {
-  const [subjects, setSubjects] = useState([]);
+  const [sessions, setSessions] = useState(() => loadFromStorage("sessions"));
+  const [subjects, setSubjects] = useState(() => loadFromStorage("subjects"));
   const [editItem, setEditItem] = useState(null);
-  const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    setSubjects(getStoredSubjects());
-  }, []);
+    saveToStorage("sessions", sessions);
+  }, [sessions]);
 
   useEffect(() => {
-    storeSubjects(subjects);
+    saveToStorage("subjects", subjects);
   }, [subjects]);
 
   const addSubject = (name) => {

@@ -1,8 +1,16 @@
-export const getStoredSubjects = () => {
-    const data = localStorage.getItem('subjects');
-    return data ? JSON.parse(data) : [];
+export const loadFromStorage = (key) => {
+    try {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : [];
+    } catch (error) {
+        return [];
+    }
 };
 
-export const storeSubjects = (subjects) => {
-    localStorage.setItem('subjects', JSON.stringify(subjects));
+export const saveToStorage = (key, value) => {
+    try {
+        localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+        console.error("Storage error:", error);
+    }
 };
