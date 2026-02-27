@@ -7,10 +7,19 @@ import SubjectList from './components/SubjectList';
 function App() {
   const [subjects, setSubjects] = useState([]);
 
+  const addSubject = (name) => {
+    const newSubject = {
+      id: Date.now(),
+      name
+    };
+
+    setSubjects([...subjects, newSubject]);
+  };
+
   return (
     <Layout>
       <Header />
-      <SubjectForm />
+      <SubjectForm onAddSubject={addSubject} />
       <SubjectList subjects={subjects} />
     </Layout>
   );

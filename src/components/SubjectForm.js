@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 
-const SubjectForm = () => {
+const SubjectForm = ({ onAddSubject }) => {
     const [subject, setSubject] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Subject:', subject);
+
+        if (!subject.trim()) return;
+
+        onAddSubject(subject);
         setSubject('');
     };
 
