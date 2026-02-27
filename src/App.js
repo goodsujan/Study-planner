@@ -1,8 +1,11 @@
+import Header from './components/Header';
+import Layout from './components/Layout';
+
 function App() {
   return (
-    <div>
-      <h1>Smart Study Planner</h1>
-    </div>
+    <Layout>
+      <Header />
+    </Layout>
   );
 }
 
