@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SubjectList = ({ subjects, onDelete }) => {
+const SubjectList = ({ subjects, onDelete, onEdit }) => {
     if (subjects.length === 0) {
         return <p style={styles.empty}>No subjects added yet.</p>;
     }
@@ -10,12 +10,20 @@ const SubjectList = ({ subjects, onDelete }) => {
             {subjects.map((sub) => (
                 <div key={sub.id} style={styles.item}>
                     <span>{sub.name}</span>
-                    <button
-                        onClick={() => onDelete(sub.id)}
-                        style={styles.deleteBtn}
-                    >
-                        ❌
-                    </button>
+                    <div>
+                        <button
+                            onClick={() => onEdit(sub)}
+                            style={styles.editBtn}
+                        >
+                            ✏️
+                        </button>
+                        <button
+                            onClick={() => onDelete(sub.id)}
+                            style={styles.deleteBtn}
+                        >
+                            ❌
+                        </button>
+                    </div>
                 </div>
             ))}
         </div>
@@ -34,6 +42,13 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
+    },
+    editBtn: {
+        border: 'none',
+        background: 'transparent',
+        cursor: 'pointer',
+        fontSize: '16px',
+        marginRight: '6px'
     },
     deleteBtn: {
         border: 'none',

@@ -1,20 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const SubjectForm = ({ onAddSubject }) => {
+const SubjectForm = ({ onAddSubject, editItem, onUpdate }) => {
     const [subject, setSubject] = useState('');
+
+    useEffect(() => {
+        if (editItem) {
+            setSubject(editItem.name);
+        }
+    }, [editItem]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!subject.trim()) return;
 
-        onAddSubject(subject);
+        if (editItem) {
+            onUpdate(editItem.id, subject);
+        } else {
+            onAddSubject(subject);
+        }
+
         setSubject('');
     };
 
     return (
         <form style={styles.form} onSubmit={handleSubmit}>
-            <h3>Add New Subject</h3>
+            <h3>{editItem ? 'Edit Subject' : 'Add New Subject'}</h3>
 
             <input
                 type="text"
@@ -26,7 +37,7 @@ const SubjectForm = ({ onAddSubject }) => {
             />
 
             <button type="submit" style={styles.button}>
-                Add Subject
+                {editItem ? 'Update Subject' : 'Add Subject'}
             </button>
         </form>
     );

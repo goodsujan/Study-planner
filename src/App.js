@@ -6,6 +6,7 @@ import SubjectList from './components/SubjectList';
 
 function App() {
   const [subjects, setSubjects] = useState([]);
+  const [editItem, setEditItem] = useState(null);
 
   const addSubject = (name) => {
     const newSubject = {
@@ -19,13 +20,31 @@ function App() {
     setSubjects(subjects.filter(sub => sub.id !== id));
   };
 
+  const editSubject = (subject) => {
+    setEditItem(subject);
+  };
+
+  const updateSubject = (id, newName) => {
+    setSubjects(
+      subjects.map(sub =>
+        sub.id === id ? { ...sub, name: newName } : sub
+      )
+    );
+    setEditItem(null);
+  };
+
   return (
     <Layout>
       <Header />
-      <SubjectForm onAddSubject={addSubject} />
+      <SubjectForm
+        onAddSubject={addSubject}
+        editItem={editItem}
+        onUpdate={updateSubject}
+      />
       <SubjectList
         subjects={subjects}
         onDelete={deleteSubject}
+        onEdit={editSubject}
       />
     </Layout>
   );
