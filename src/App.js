@@ -5,16 +5,20 @@ import SubjectForm from './components/SubjectForm';
 import SubjectList from './components/SubjectList';
 import SessionForm from './components/SessionForm';
 import SessionList from './components/SessionList';
+import { generateSmartSchedule } from "./utils/scheduler";
 import { loadFromStorage, saveToStorage } from "./utils/localStorage";
 
 function App() {
   const [sessions, setSessions] = useState(() => loadFromStorage("sessions"));
   const [subjects, setSubjects] = useState(() => loadFromStorage("subjects"));
-  const [editItem, setEditItem] = useState(null);
+  const [editSession, setEditSession] = useState(null);
+  const [dailyPlan, setDailyPlan] = useState([]);
+  const [availableTime, setAvailableTime] = useState(180);
 
   useEffect(() => {
     saveToStorage("sessions", sessions);
   }, [sessions]);
+
 
   useEffect(() => {
     saveToStorage("subjects", subjects);
@@ -57,24 +61,30 @@ function App() {
     setSessions(sessions.filter(s => s.id !== id));
   };
 
+  const updateSession = (id, updated) => {
+    setSessions(
+      sessions.map((s) =>
+        s.id === id ? { ...s, ...updated } : s
+      )
+    );
+  };
+
   return (
     <Layout>
       <Header />
 
-      <SubjectForm
-        onAddSubject={addSubject}
-        editItem={editItem}
-        onUpdate={updateSubject}
+      <SessionForm
+        addSession={addSession}
+        editData={editSession}
+        updateSession={updateSession}
+        clearEdit={() => setEditSession(null)}
       />
 
-      <SubjectList
-        subjects={subjects}
-        onDelete={deleteSubject}
-        onEdit={editSubject}
+      <SessionList
+        sessions={sessions}
+        deleteSession={deleteSession}
+        setEditSession={setEditSession}
       />
-
-      <SessionForm onAddSession={addSession} />
-      <SessionList sessions={sessions} onDelete={deleteSession} />
     </Layout>
   );
 }
