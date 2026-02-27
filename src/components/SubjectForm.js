@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const SubjectForm = () => {
+    const [subject, setSubject] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Subject:', subject);
+        setSubject('');
+    };
+
     return (
-        <form style={styles.form}>
+        <form style={styles.form} onSubmit={handleSubmit}>
             <h3>Add New Subject</h3>
 
             <input
                 type="text"
                 placeholder="Enter subject name"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
                 style={styles.input}
+                required
             />
 
             <button type="submit" style={styles.button}>
