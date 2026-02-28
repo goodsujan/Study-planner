@@ -261,6 +261,23 @@ textarea:focus {
   font-size: 0.9rem;
 }
 
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -276,4 +293,20 @@ textarea:focus {
 
 .animate-fade {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.footer .name {
+  color: var(--primary);
+  font-weight: 700;
+  margin-left: 4px;
 }

@@ -17,6 +17,21 @@ function App() {
   const [subjectSearch, setSubjectSearch] = useState("");
   const [sessionFilter, setSessionFilter] = useState("all");
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const todaySessions = sessions.filter(
+    (s) => new Date(s.date).getTime() === today.getTime()
+  );
+
+  const upcomingSessions = sessions.filter(
+    (s) => new Date(s.date) > today
+  );
+
+  const totalMinutes = sessions.reduce(
+    (sum, s) => sum + Number(s.duration || 0),
+    0
+  );
   // Filter sessions based on search & date
   const filteredSessions = sessions
     .filter((s) => s.title.toLowerCase().includes(sessionSearch.toLowerCase()))
@@ -86,6 +101,14 @@ function App() {
     <Layout>
       <Header />
 
+      <div className="dashboard">
+        <div className="card">📚 Subjects: {subjects.length}</div>
+        <div className="card">📝 Sessions: {sessions.length}</div>
+        <div className="card">📅 Today: {todaySessions.length}</div>
+        <div className="card">⏭ Upcoming: {upcomingSessions.length}</div>
+        <div className="card">⏱ Total Minutes: {totalMinutes}</div>
+      </div>
+
       <div className="search-container animate-fade">
         <h3>🔍 Search & Intelligent Filters</h3>
         <div className="search-grid">
@@ -152,6 +175,9 @@ function App() {
           />
         </section>
       </div>
+      <footer className="footer animate-fade">
+        <p>Built by <span className="name">Sujan</span> | © 2026 Smart Study Planner</p>
+      </footer>
     </Layout>
   );
 }
