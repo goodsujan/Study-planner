@@ -12,24 +12,39 @@ function SubjectForm({ addSubject, editSubject, updateSubject, clearEdit }) {
         if (!name.trim()) return;
 
         if (editSubject) {
-            updateSubject(editSubject.id, { ...editSubject, name });
+            updateSubject(editSubject.id, { ...editSubject, name: name.trim() });
             clearEdit();
         } else {
-            addSubject({ id: Date.now(), name });
+            addSubject({ id: Date.now(), name: name.trim() });
         }
 
         setName("");
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-            <input
-                type="text"
-                placeholder="Subject Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <button type="submit">{editSubject ? "Update Subject" : "Add Subject"}</button>
+        <form onSubmit={handleSubmit} style={{ marginBottom: '32px' }}>
+            <div style={{ display: 'flex', gap: '8px' }}>
+                <input
+                    type="text"
+                    placeholder="New Subject..."
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    style={{ flex: 1 }}
+                    required
+                />
+                <button type="submit" className="btn-primary" style={{ whiteSpace: 'nowrap' }}>
+                    {editSubject ? "💾 Update" : "➕ Add"}
+                </button>
+            </div>
+            {editSubject && (
+                <button
+                    type="button"
+                    onClick={clearEdit}
+                    style={{ background: 'transparent', color: '#64748b', fontSize: '0.85rem', border: 'none', cursor: 'pointer', padding: '4px 0 0 0' }}
+                >
+                    Cancel editing
+                </button>
+            )}
         </form>
     );
 }

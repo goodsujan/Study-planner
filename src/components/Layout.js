@@ -10,9 +10,9 @@ const Layout = ({ children }) => {
 
 const styles = {
     container: {
-        maxWidth: '800px',
-        margin: '40px auto',
-        padding: '20px'
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '40px 24px'
     }
 };
 
